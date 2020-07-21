@@ -1,0 +1,15 @@
+version: "3"
+services:
+  pasqooda-front:
+    build: .
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - DEBUG=${DEBUG}
+    restart: "unless-stopped"
+    hostname: "docker_pasqooda_front_admin"
+    container_name: "pasqooda_front_admin"
+    ports:
+      - 4042:80
+    tty: false
