@@ -3,11 +3,11 @@
 <v-form action="https://postman-echo.com/post" method="post" id="searchForm" @submit.prevent="formSubmit">
           <v-text-field @keyup="formSubmit" @paste="formSubmit" label="Пиши что-нибудь"  v-model="searchString" name="searchString"></v-text-field>  
 </v-form>
-<ul>
-    <li v-for="(order, i) in searchResults" :key="order.id">
-        <searchResultItem :order="order" :serialNumber="i+1"/>
-    </li>
-</ul>
+
+    <v-row class="pa-0 ma-0" v-for="(order, i) in searchResults" :key="order.id">
+        <v-col class="pa-0 ma-0"><searchResultItem :order="order" :serialNumber="i+1"/></v-col>
+    </v-row>
+
 
 </div>
 </template>
@@ -39,7 +39,8 @@ export default {
                             this.$store.dispatch('notice/add', {type: 'error', message: response.data.message}, {root: true})
                         }
                         console.log(response.data.message);
-                        this.searchResults = response.data.message;
+                        let temp = response.data.message;
+                        this.searchResults = temp.reverse();
                     })
                     .catch((err)=>{
                         this.$store.dispatch('notice/add', {type: 'error', message: err.message}, {root: true})
